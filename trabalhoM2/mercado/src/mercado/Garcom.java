@@ -11,16 +11,19 @@ public class Garcom extends funcionario {
     private List<Opcoes> cardapio;
     private Scanner scanner;
     private caixa caixaRestaurante;
+    private restaurante rest;
+    
     
     // Construtor - cria um novo garçom
-    public Garcom(String nome, int codigo, String usuario, String senha, caixa caixa) {
+    public Garcom(String nome, int codigo, String usuario, String senha, caixa caixa, restaurante r) {
         super(nome, codigo, usuario, senha);
+        this.rest = r;
         this.mesas = new ArrayList<>();
         this.cardapio = new ArrayList<>();
         this.scanner = new Scanner(System.in);
         this.caixaRestaurante = caixa;
         inicializarCardapio();
-        inicializarMesas();
+        inicializarMesas(r.getQtdMesas());
     }
     
     // Prepara o cardápio com os itens disponíveis
@@ -36,8 +39,8 @@ public class Garcom extends funcionario {
     }
     
     // Cria as mesas do restaurante
-    private void inicializarMesas() {
-        for (int i = 1; i <= 10; i++) { // 10 mesas no total
+    private void inicializarMesas(int a) {
+        for (int i = 1; i <= a; i++) { 
             mesas.add(new mesa(i));
         }
     }
@@ -50,7 +53,7 @@ public class Garcom extends funcionario {
     
     // Menu principal do garçom
     public void iniciarTrabalho() {
-        System.out.println("👨‍🍳 " + getNome() + " começando o turno!");
+        System.out.println(  getNome() + " começando o turno!");
         
         // Pede login do garçom
         System.out.print("Digite seu usuário: ");
@@ -63,7 +66,7 @@ public class Garcom extends funcionario {
             return;
         }
         
-        System.out.println("✓ Login feito com sucesso! Bem-vindo, " + getNome() + "!");
+        System.out.println("Login feito com sucesso! Bem-vindo, " + getNome() + "!");
         
         boolean trabalhando = true;
         while (trabalhando) {
@@ -90,10 +93,10 @@ public class Garcom extends funcionario {
                 case 4:
                     trabalhando = false;
                     logout();
-                    System.out.println("👋 " + getNome() + " saindo do sistema...");
+                    System.out.println( getNome() + " saindo do sistema...");
                     break;
                 default:
-                    System.out.println("✗ Opção inválida! Tente novamente.");
+                    System.out.println(" Opção inválida! Tente novamente.");
             }
         }
     }
@@ -102,20 +105,20 @@ public class Garcom extends funcionario {
     public void atenderMesa() {
         // Verifica se o garçom está logado
         if (!isAutenticado()) {
-            System.out.println("✗ Você precisa estar logado para atender mesas!");
+            System.out.println(" Você precisa estar logado para atender mesas!");
             return;
         }
         
-        System.out.print("\n🎯 Qual mesa você vai atender? (1-10): ");
+        System.out.print(" Qual mesa você vai atender?");
         int numeroMesa = scanner.nextInt();
         
         mesa mesa = buscarMesa(numeroMesa);
         if (mesa == null) {
-            System.out.println("✗ Mesa não encontrada!");
+            System.out.println(" Mesa não encontrada!");
             return;
         }
         
-        System.out.println("\n👨‍🍳 " + getNome() + " atendendo a Mesa " + numeroMesa);
+        System.out.println("\n " + getNome() + " atendendo a Mesa " + numeroMesa);
         gerenciarMesa(mesa);
     }
     
@@ -156,7 +159,7 @@ public class Garcom extends funcionario {
     
     // Adiciona um pedido na mesa
     private void fazerPedido(mesa mesa) {
-        System.out.println("\n📖 CARDÁPIO:");
+        System.out.println("\n CARDÁPIO:");
         for (int i = 0; i < cardapio.size(); i++) {
             System.out.println((i+1) + ". " + cardapio.get(i));
         }
@@ -182,7 +185,7 @@ public class Garcom extends funcionario {
     
     // Mostra todos os pedidos da mesa
     private void verComanda(mesa mesa) {
-        System.out.println("\n📋 COMANDA DA MESA " + mesa.getNumero());
+        System.out.println("/n COMANDA DA MESA " + mesa.getNumero());
         List<Pedido> comanda = mesa.getComanda();
         
         if (comanda.isEmpty()) {
@@ -191,24 +194,24 @@ public class Garcom extends funcionario {
             for (int i = 0; i < comanda.size(); i++) {
                 System.out.println((i+1) + ". " + comanda.get(i));
             }
-            System.out.println("💳 TOTAL: R$ " + mesa.getDebito());
+            System.out.println(" TOTAL: R$ " + mesa.getDebito());
         }
     }
     
     // Fecha a conta da mesa
     private void fecharConta(mesa mesa) {
-        System.out.println("\n🧾 FECHANDO CONTA DA MESA " + mesa.getNumero());
+        System.out.println("\n FECHANDO CONTA DA MESA " + mesa.getNumero());
         verComanda(mesa);
         
         if (mesa.getDebito() > 0) {
-            System.out.print("Quanto o cliente pagou? R$ ");
+            System.out.print("Quanto o cliente pagou R$ ");
             float valorRecebido = scanner.nextFloat();
             
             // Usa o caixa para processar o pagamento
             if (caixaRestaurante.processarPagamento(mesa, valorRecebido, "Dinheiro")) {
-                System.out.println("✓ Conta fechada com sucesso!");
+                System.out.println(" Conta fechada com sucesso!");
             } else {
-                System.out.println("✗ Erro ao fechar a conta!");
+                System.out.println(" Erro ao fechar a conta!");
             }
         } else {
             System.out.println("Esta mesa não tem nada para pagar.");

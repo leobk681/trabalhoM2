@@ -9,7 +9,17 @@ public class restaurante {
     private int QtdMesas;
     List<Opcoes> pratos = new ArrayList<>();
     
-    // Construtor - cria o restaurante
+    
+   
+    public int getQtdMesas() {
+		return QtdMesas;
+	}
+
+	public void setQtdMesas(int qtdMesas) {
+		QtdMesas = qtdMesas;
+	}
+
+	// Construtor - cria o restaurante
     public restaurante(String nome, int qtdMesas) {
         this.nome = nome;
         this.QtdMesas = qtdMesas;
@@ -21,7 +31,8 @@ public class restaurante {
     
     // Método principal - onde o programa começa
     public static void main(String[] args) {
-        System.out.println("🏪 INICIANDO SISTEMA DO RESTAURANTE\n");
+    	restaurante r = new restaurante("dexterdIner", 10 );
+        System.out.println("INICIANDO SISTEMA DO RESTAURANTE\n");
         
         // Cria a conta bancária do restaurante
         contaBancaria contaDoRestaurante = new contaBancaria();
@@ -33,7 +44,7 @@ public class restaurante {
         caixaDoRestaurante.abrirCaixa(100.0f);
         
         // Cria o garçom
-        Garcom garcomJoao = new Garcom("João Silva", 101, "joao", "1234", caixaDoRestaurante);
+        Garcom garcomJoao = new Garcom("João Silva", 101, "joao", "1234", caixaDoRestaurante, r);
         
         // Inicia o trabalho do garçom
         garcomJoao.iniciarTrabalho();
