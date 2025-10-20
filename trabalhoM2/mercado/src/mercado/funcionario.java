@@ -42,9 +42,9 @@ public class funcionario {
     }
     
     // Sistema de login do funcionário
-    public boolean autenticar(String usuario, String senha) {
+    public boolean autenticar(int codigo, String senha) {
         // Verifica se usuário e senha estão certos
-        this.autenticado = this.usuario.equals(usuario) && this.senha.equals(senha);
+        this.autenticado = (this.codigo == codigo) && this.senha.equals(senha);
         return this.autenticado;
     }
     

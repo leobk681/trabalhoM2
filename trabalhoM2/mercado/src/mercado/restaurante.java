@@ -20,7 +20,7 @@ public class restaurante {
 	}
 
 	// Construtor - cria o restaurante
-    public restaurante(String nome, int qtdMesas) {
+		public restaurante(String nome, int qtdMesas) {
         this.nome = nome;
         this.QtdMesas = qtdMesas;
         this.pratos = new ArrayList<>();
@@ -31,7 +31,7 @@ public class restaurante {
     
     // Método principal - onde o programa começa
     public static void main(String[] args) {
-    	restaurante r = new restaurante("dexterdIner", 10 );
+    	restaurante r = new restaurante("leodiner", 10 );
         System.out.println("INICIANDO SISTEMA DO RESTAURANTE\n");
         
         // Cria a conta bancária do restaurante
@@ -44,7 +44,7 @@ public class restaurante {
         caixaDoRestaurante.abrirCaixa(100.0f);
         
         // Cria o garçom
-        Garcom garcomJoao = new Garcom("João Silva", 101, "joao", "1234", caixaDoRestaurante, r);
+        Garcom garcomJoao = new Garcom("Leonardo Carvalho", 7, "leo", "1234", caixaDoRestaurante, r);
         
         // Inicia o trabalho do garçom
         garcomJoao.iniciarTrabalho();

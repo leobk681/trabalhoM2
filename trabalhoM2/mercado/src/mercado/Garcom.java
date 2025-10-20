@@ -56,13 +56,13 @@ public class Garcom extends funcionario {
         System.out.println(  getNome() + " começando o turno!");
         
         // Pede login do garçom
-        System.out.print("Digite seu usuário: ");
-        String usuario = scanner.next();
+        System.out.print("Digite seu codigo de usuário: ");
+        int codigo = scanner.nextInt();
         System.out.print("Digite sua senha: ");
         String senha = scanner.next();
         
-        if (!autenticar(usuario, senha)) {
-            System.out.println("✗ Login falhou! Usuário ou senha errados.");
+        if (!autenticar(codigo, senha)) {
+            System.out.println(" Login falhou! Usuário ou senha errados.");
             return;
         }
         
